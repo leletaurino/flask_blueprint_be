@@ -1,6 +1,6 @@
 from flask import render_template
 from flask_appbuilder.models.sqla.interface import SQLAInterface
-from flask_appbuilder import ModelView, ModelRestApi
+from flask_appbuilder import ModelView, ModelRestApi, BaseView, expose
 
 from . import appbuilder, db
 
@@ -46,5 +46,17 @@ def page_not_found(e):
         404,
     )
 
+
+class HelloWorld(BaseView):
+    """ This first view of the tutorial """
+    route_base = "/hello"
+
+    @expose("/")
+    def hello(self):
+        return "Hello, World! from Software Testing Help"
+
+
+# at the end of the file
+appbuilder.add_view(HelloWorld(), 'hello')
 
 db.create_all()
